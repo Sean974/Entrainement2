@@ -69,7 +69,7 @@ public class SurfaceViewThread extends SurfaceView implements SurfaceHolder.Call
 
 
             cercle.move(this);
-            update();
+            
             draw();
 
             try {
