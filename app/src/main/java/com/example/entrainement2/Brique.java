@@ -27,9 +27,7 @@ public class Brique {
     public int getY(){return this.y;}
     public int getWidth(){return this.width;}
     public int getHeight(){return this.height;}
-    public RectF getRect(){
-        return this.rect;
-    }
+    public RectF getRect(){return this.rect;}
     public boolean getVisibility(){return this.isVisible;}
 
     public void setX(int x){this.x = x;}

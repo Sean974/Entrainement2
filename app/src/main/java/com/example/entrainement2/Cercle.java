@@ -33,6 +33,10 @@ public class Cercle{
     public void setDiametre(int r) {diametre = r;}
     public void setColor(Color c) {couleur = c;}
 
+    public void reverseYVelocity(){
+        int y = getY();int x = getX();
+        setY(y=-y);
+    }
     public void draw(Canvas c) {
         Paint p = new Paint();
         p.setColor(Color.RED);

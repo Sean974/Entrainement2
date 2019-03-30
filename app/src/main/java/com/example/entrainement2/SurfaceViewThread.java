@@ -50,7 +50,7 @@ public class SurfaceViewThread extends SurfaceView implements SurfaceHolder.Call
         paint = new Paint();
         paint.setColor(Color.GREEN);
 
-        cercle = new Cercle(screenWidth+100,screenHeight+400,55,25);
+        cercle = new Cercle(screenWidth+100,screenHeight+1000,55,10);
         //cercle.setSpeed(20);
         // Set the SurfaceView object at the top of View object.
         setZOrderOnTop(true);
@@ -78,26 +78,27 @@ public class SurfaceViewThread extends SurfaceView implements SurfaceHolder.Call
         }
     }
 
-    public boolean intersect(Cercle c, Brique b){
-        cercleDx = c.getX() - b.getX() - b.getWidth()/2;
-        cercleDy = c.getY() - b.getY() - b.getHeight()/2;
+    public boolean intersects(Cercle c, Brique b) {
+        boolean intersects = false;
+        if (c.getX() + c.getDiametre() >= b.getRect().left &&
+                c.getX() - c.getDiametre() <= b.getRect().right &&
+                c.getY() + c.getDiametre() <= b.getRect().bottom &&
+                c.getY() - c.getDiametre() >= b.getRect().top)
+        {
+            intersects = true;
+        }
 
-        if(cercleDx > (b.getWidth()/2 + c.getDiametre())){return false;}
-        if(cercleDy > (b.getHeight()/2 + c.getDiametre())){return false;}
+        return intersects;
 
-        if(cercleDx <= (b.getWidth()/2 )){return false;}
-        if(cercleDy <= (b.getHeight()/2 )){return false;}
-
-        distance = (cercleDx - b.getWidth()/2)^2 + (cercleDy - b.getHeight()/2)^2;
-        return(distance <= (c.getDiametre()^2));
     }
 
     public void update(){
         // Check for ball colliding with a brick
         for (int i = 0; i < nbBricks; i++) {
             if (bricks[i].getVisibility()) {
-                if (intersect(cercle, bricks[i])) {
+                if (intersects(cercle, bricks[i])) {
                     bricks[i].setInvisible();
+                    cercle.reverseYVelocity();
                     System.out.print("invisible");
                 }
             }
